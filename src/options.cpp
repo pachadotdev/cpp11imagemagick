@@ -3,7 +3,7 @@
  * See API: https://www.imagemagick.org/Magick++/STL.html
  */
 
-#include "magick_types.h"
+#include "00_magick_types.h"
 
 MagickCore::CommandOption getOptionByName(const char * str){
   ssize_t val = MagickCore::ParseCommandOption(
@@ -13,9 +13,8 @@ MagickCore::CommandOption getOptionByName(const char * str){
   return (MagickCore::CommandOption) val;
 }
 
-// [[Rcpp::export]]
-Rcpp::CharacterVector list_options(const char * str){
-  Rcpp::CharacterVector out;
+[[cpp11::register]] cpp11::strings list_options(const char * str){
+  cpp11::writable::strings out;
   char ** opts = MagickCore::GetCommandOptions(getOptionByName(str));
   while(opts && *opts)
     out.push_back(*opts++);
@@ -23,18 +22,17 @@ Rcpp::CharacterVector list_options(const char * str){
 }
 
 // Copied code from MagickCore ListTypeInfo()
-// [[Rcpp::export]]
-Rcpp::DataFrame list_font_info(){
+[[cpp11::register]] cpp11::data_frame list_font_info(){
   size_t number_fonts=0;
   MagickCore::ExceptionInfo *exception = MagickCore::AcquireExceptionInfo();
   const MagickCore::TypeInfo **type_info = MagickCore::GetTypeInfoList("*",&number_fonts,exception);
   if(type_info == NULL || number_fonts == 0)
     return R_NilValue;
-  Rcpp::CharacterVector name(number_fonts);
-  Rcpp::CharacterVector family(number_fonts);
-  Rcpp::CharacterVector glyphs(number_fonts);
-  Rcpp::IntegerVector weight(number_fonts);
-  for (int i = 0; i < number_fonts; i++){
+  cpp11::writable::strings name(number_fonts);
+  cpp11::writable::strings family(number_fonts);
+  cpp11::writable::strings glyphs(number_fonts);
+  cpp11::writable::integers weight(number_fonts);
+  for (size_t i = 0; i < number_fonts; i++){
     if(type_info[i]->name)
       name[i] = type_info[i]->name;
     if(type_info[i]->family)
@@ -45,17 +43,16 @@ Rcpp::DataFrame list_font_info(){
       weight[i] = type_info[i]->weight;
   }
   MagickCore::RelinquishMagickMemory((void *) type_info);
-  return Rcpp::DataFrame::create(
-    Rcpp::_["name"] = name,
-    Rcpp::_["family"] = family,
-    Rcpp::_["weight"] = weight,
-    Rcpp::_["glyphs"] = glyphs,
-    Rcpp::_["stringsAsFactors"] = false
-  );
+  return cpp11::data_frame({
+    "name"_nm = name,
+    "family"_nm = family,
+    "weight"_nm = weight,
+    "glyphs"_nm = glyphs,
+    "stringsAsFactors"_nm = false
+  });
 }
 
-// [[Rcpp::export]]
-void dump_option_list(SEXP args){
+[[cpp11::register]] void dump_option_list(SEXP args){
   /* This is equivalent to calling: convert -list font */
   MagickCore::ExceptionInfo *exception = MagickCore::AcquireExceptionInfo();
   MagickCore::ImageInfo *info = MagickCore::AcquireImageInfo();
@@ -71,8 +68,7 @@ void dump_option_list(SEXP args){
   exception=DestroyExceptionInfo(exception);
 }
 
-// [[Rcpp::export]]
-Rcpp::String set_magick_tempdir(const char * new_tmpdir){
+[[cpp11::register]] cpp11::strings set_magick_tempdir(const char * new_tmpdir){
   if(new_tmpdir && strlen(new_tmpdir)){
     MagickCore::ExceptionInfo *exception = MagickCore::AcquireExceptionInfo();
     MagickCore::SetImageRegistry(MagickCore::StringRegistryType, "temporary-path", new_tmpdir, exception);
@@ -86,11 +82,10 @@ Rcpp::String set_magick_tempdir(const char * new_tmpdir){
 #if MagickLibVersion >= 0x681
   MagickCore::GetPathTemplate(path);
 #endif
-  return Rcpp::String(path);
+  return cpp11::writable::strings({path});
 }
 
-// [[Rcpp::export]]
-void set_magick_seed(unsigned long seed){
+[[cpp11::register]] void set_magick_seed(unsigned long seed){
 #if MagickLibVersion >= 0x694
   Magick::SetRandomSeed(seed);
 #endif

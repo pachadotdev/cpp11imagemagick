@@ -6,8 +6,7 @@
  * and https://www.imagemagick.org/Magick++/Enumerations.html
  *
  */
-#include "magick_types.h"
-#include <R_ext/GraphicsEngine.h>
+#include "00_magick_types.h"
 
 Magick::Color col2magick(rcolor col){
   char str[10];
@@ -217,7 +216,6 @@ static void image_clip(double left, double right, double bottom, double top, pDe
   dev->clipbottom = bottom;
   dev->cliptop = top;
 
-  BEGIN_RCPP
   pathlist path;
   path.push_back(Magick::PathMovetoAbs(Magick::Coordinate(left, top)));
   path.push_back(Magick::PathLinetoAbs(Magick::Coordinate(right, top)));
@@ -238,11 +236,9 @@ static void image_clip(double left, double right, double bottom, double top, pDe
     Frame * graph = getgraph(dd);
     graph->draw(draw);
   }
-  VOID_END_RCPP
 }
 
 static void image_new_page(const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   Image *image = getimage(dd);
   if(image->size() > 0 && getdev(dd)->drawing)
     throw std::runtime_error("Cannot open a new page on a drawing device");
@@ -258,17 +254,13 @@ static void image_new_page(const pGEcontext gc, pDevDesc dd) {
   x.strokeAntiAlias(getdev(dd)->antialias);
   x.myAntiAlias(getdev(dd)->antialias);
   image->push_back(x);
-  VOID_END_RCPP
 }
 
 static void image_line(double x1, double y1, double x2, double y2, const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   image_draw(Magick::DrawableLine(x1, y1, x2, y2), gc, dd);
-  VOID_END_RCPP
 }
 
 static void image_polyline(int n, double *x, double *y, const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   drawlist draw;
   //Note 'fill' must be unset to prevent magick from creating a polygon
   draw.push_back(Magick::DrawableFillColor(Magick::Color("none")));
@@ -280,33 +272,25 @@ static void image_polyline(int n, double *x, double *y, const pGEcontext gc, pDe
 #endif
   draw.push_back(Magick::DrawablePolyline(coord(n, x, y)));
   image_draw(draw, gc, dd, join, false);
-  VOID_END_RCPP
 }
 
 static void image_polygon(int n, double *x, double *y, const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   image_draw(Magick::DrawablePolygon(coord(n, x, y)), gc, dd);
-  VOID_END_RCPP
 }
 
 static void image_rect(double x0, double y0, double x1, double y1,
                 const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   image_draw(Magick::DrawableRectangle(x0, y1, x1, y0), gc, dd);
-  VOID_END_RCPP
 }
 
 static void image_circle(double x, double y, double r, const pGEcontext gc,
                   pDevDesc dd) {
-  BEGIN_RCPP
   //note: parameter 3 + 4 must denote any point on the circle
   image_draw(Magick::DrawableCircle(x, y, x, y + r), gc, dd);
-  VOID_END_RCPP
 }
 
 static void image_path(double *x, double *y, int npoly, int *nper, Rboolean winding,
               const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   getgraph(dd)->fillRule(winding ? Magick::NonZeroRule : Magick::EvenOddRule);
   pathlist path;
   for (int i = 0; i < npoly; i++) {
@@ -320,7 +304,6 @@ static void image_path(double *x, double *y, int npoly, int *nper, Rboolean wind
     y+=n;
   }
   image_draw(Magick::DrawablePath(path), gc, dd);
-  VOID_END_RCPP
 }
 
 static void image_size(double *left, double *right, double *bottom, double *top,
@@ -338,7 +321,6 @@ static void image_raster(unsigned int *raster, int w, int h,
                 double rot,
                 Rboolean interpolate,
                 const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   //normalize
   rot = fmod(-rot + 360.0, 360.0);
   height = - height;
@@ -361,7 +343,6 @@ static void image_raster(unsigned int *raster, int w, int h,
   }
   draw.push_back(Magick::DrawableCompositeImage(x, y - height, width, height, frame, Magick::OverCompositeOp));
   image_draw(draw, gc, dd);
-  VOID_END_RCPP
 }
 
 #if R_GE_version >= 13
@@ -388,24 +369,20 @@ static void image_releaseMask(SEXP ref, pDevDesc dd) {}
 
 /* TODO: somehow R adds another protect */
 static void image_close(pDevDesc dd) {
-  BEGIN_RCPP
   dirty = NULL;
   if(dd->canClip && getimage(dd)->size()) //Reset clipping area, R doesn't do that
     image_clip(dd->left, dd->right, dd->bottom, dd->top, dd);
   MagickDevice * device = (MagickDevice *) dd->deviceSpecific;
   delete device;
-  VOID_END_RCPP
 }
 
 SEXP image_capture(pDevDesc dd){
-  BEGIN_RCPP
   Frame * graph = getgraph(dd);
-  Rcpp::IntegerMatrix out(dd->bottom, dd->right);
+  cpp11::writable::integers_matrix<> out(dd->bottom, dd->right);
   Magick::Blob output;
   graph->write(&output, "rgba", 8L);
-  std::memcpy(out.begin(), output.data(), output.length());
+  std::memcpy(out.data(), output.data(), output.length());
   return out;
-  VOID_END_RCPP
   return R_NilValue;
 }
 
@@ -417,7 +394,6 @@ void image_mode(int mode, pDevDesc dd){
 
 static void image_text(double x, double y, const char *str, double rot,
                 double hadj, const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   double multiplier = 1/dd->ipr[0]/72;
   double deg = fmod(-rot + 360.0, 360.0);
   double ps = gc->ps * gc->cex * multiplier;
@@ -453,13 +429,11 @@ static void image_text(double x, double y, const char *str, double rot,
 
   draw.push_back(Magick::DrawableText(x, y, std::string(str), "UTF-8"));
   image_draw(draw, gc, dd);
-  VOID_END_RCPP
 }
 
 static void image_metric_info(int c, const pGEcontext gc, double* ascent,
                        double* descent, double* width, pDevDesc dd) {
   /* DOCS: http://www.imagemagick.org/Magick++/TypeMetric.html */
-  BEGIN_RCPP
   bool is_unicode = mbcslocale;
   if (c < 0) {
     is_unicode = true;
@@ -490,11 +464,9 @@ static void image_metric_info(int c, const pGEcontext gc, double* ascent,
   *width = tm.textWidth();
   //See base-r function PangoCairo_MetricInfo
   //Rprintf("c = %d, '%s', face %d %f %f %f\n",  c, str, gc->fontface, *width, *ascent, *descent);
-  VOID_END_RCPP
 }
 
 static double image_strwidth(const char *str, const pGEcontext gc, pDevDesc dd) {
-  BEGIN_RCPP
   Frame * graph = getgraph(dd);
 #if MagickLibVersion >= 0x692
   graph->fontFamily(fontname(gc));
@@ -506,7 +478,6 @@ static double image_strwidth(const char *str, const pGEcontext gc, pDevDesc dd) 
   Magick::TypeMetric tm;
   graph->fontTypeMetrics(str, &tm);
   return tm.textWidth();
-  VOID_END_RCPP
   return 0;
 }
 
@@ -618,18 +589,15 @@ static void makeDevice(MagickDevice * device, std::string bg_, int width, int he
   } END_SUSPEND_INTERRUPTS;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_device_internal(std::string bg, int width, int height, double pointsize,
+[[cpp11::register]] XPtrImage magick_device_internal(std::string bg, int width, int height, double pointsize,
                                  int res, bool clip, bool antialias, bool drawing) {
   MagickDevice * device = new MagickDevice(drawing, antialias);
-  device->ptr.attr("class") = Rcpp::CharacterVector::create("magick-image");
   makeDevice(device, bg, width, height, pointsize, res, clip);
   return device->ptr;
 }
 
 
-// [[Rcpp::export]]
-XPtrImage magick_device_get(int n){
+[[cpp11::register]] XPtrImage magick_device_get(int n){
   if(n <= 1)
     throw std::runtime_error("No such graphics device");
   pGEDevDesc gd = GEgetDevice(n - 1);
@@ -638,8 +606,7 @@ XPtrImage magick_device_get(int n){
   return getptr(gd->dev);
 }
 
-// [[Rcpp::export]]
-SEXP magick_device_pop(){
+[[cpp11::register]] SEXP magick_device_pop(){
   if(dirty == NULL)
     return R_NilValue;
   MagickDevice * device = dirty;

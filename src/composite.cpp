@@ -1,4 +1,4 @@
-#include "magick_types.h"
+#include "00_magick_types.h"
 
 /* Support for artifacts was added in 6.8.7: https://git.io/v7HFG
  */
@@ -11,10 +11,9 @@ Magick::Geometry apply_geom_gravity(Frame image, Magick::Geometry geom, Magick::
   return region;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_composite( XPtrImage input, XPtrImage composite_image,
+[[cpp11::register]] XPtrImage magick_image_composite( XPtrImage input, XPtrImage composite_image,
                                   const char * offset, const char * gravity,
-                                  const char * composite, Rcpp::CharacterVector args){
+                                  const char * composite, cpp11::strings args){
   if(composite_image->size() == 0)
     throw std::runtime_error("Invalid composite_image");
   XPtrImage output = copy(input);
@@ -47,30 +46,35 @@ XPtrImage magick_image_composite( XPtrImage input, XPtrImage composite_image,
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_border( XPtrImage input, Rcpp::CharacterVector color, Rcpp::CharacterVector geometry,
-                               Rcpp::CharacterVector composite){
+[[cpp11::register]] XPtrImage magick_image_border(XPtrImage input,
+                                                  cpp11::strings color,
+                                                  cpp11::strings geometry,
+                                                  cpp11::strings composite) {
   XPtrImage output = copy(input);
-  for_each ( output->begin(), output->end(), Magick::composeImage(Composite(composite.at(0))));
-  if(color.size())
-    for_each ( output->begin(), output->end(), Magick::borderColorImage(Color(color.at(0))));
-  if(geometry.size())
-    for_each ( output->begin(), output->end(), Magick::borderImage(Geom(geometry.at(0))));
+  for_each(
+      output->begin(), output->end(),
+      Magick::composeImage(Composite(std::string(composite.at(0)).c_str())));
+  if (color.size())
+    for_each(output->begin(), output->end(),
+             Magick::borderColorImage(Color(std::string(color.at(0)).c_str())));
+  if (geometry.size())
+    for_each(output->begin(), output->end(),
+             Magick::borderImage(Geom(std::string(geometry.at(0)).c_str())));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_frame( XPtrImage input, Rcpp::CharacterVector color, Rcpp::CharacterVector geometry){
+[[cpp11::register]] XPtrImage magick_image_frame( XPtrImage input, cpp11::strings color, cpp11::strings geometry){
   XPtrImage output = copy(input);
   if(color.size())
-    for_each ( output->begin(), output->end(), Magick::matteColorImage(Color(color.at(0))));
+    for_each(output->begin(), output->end(),
+             Magick::borderColorImage(std::string(color.at(0)).c_str()));
   if(geometry.size())
-    for_each ( output->begin(), output->end(), Magick::frameImage(Geom(geometry.at(0))));
+    for_each(output->begin(), output->end(),
+             Magick::frameImage(Geom(std::string(geometry.at(0)).c_str())));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_shadow_mask( XPtrImage input, const char * geomstr){
+[[cpp11::register]] XPtrImage magick_image_shadow_mask( XPtrImage input, const char * geomstr){
   XPtrImage output = copy(input);
 #if MagickLibVersion >= 0x675
   Magick::Geometry geom = Geom(geomstr);
@@ -85,8 +89,7 @@ XPtrImage magick_image_shadow_mask( XPtrImage input, const char * geomstr){
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_shade( XPtrImage input, double azimuth = 30, double elevation = 30, bool color = false){
+[[cpp11::register]] XPtrImage magick_image_shade( XPtrImage input, double azimuth = 30, double elevation = 30, bool color = false){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::shadeImage(azimuth, elevation, color));
   return output;
@@ -94,14 +97,13 @@ XPtrImage magick_image_shade( XPtrImage input, double azimuth = 30, double eleva
 
 // The C++ crop() API doesn't work well, see https://github.com/ImageMagick/ImageMagick/issues/1642
 
-// [[Rcpp::export]]
-XPtrImage magick_image_crop( XPtrImage input, Rcpp::CharacterVector geometry,
-                             Rcpp::CharacterVector gravity, bool repage){
+[[cpp11::register]] XPtrImage magick_image_crop( XPtrImage input, cpp11::strings geometry,
+                             cpp11::strings gravity, bool repage){
   XPtrImage output = copy(input);
   for(size_t i = 0; i < output->size(); i++){
-    Magick::Geometry region(geometry.size() ? Geom(geometry.at(0)) : input->front().size());
+    Magick::Geometry region(geometry.size() ? Geom(std::string(geometry.at(0)).c_str()) : input->front().size());
     if(gravity.size())
-      region = apply_geom_gravity(output->at(i), region, Gravity(gravity.at(0)));
+      region = apply_geom_gravity(output->at(i), region, Gravity(std::string(gravity.at(0)).c_str()));
     if(region.percent()){
       MagickCore::ExceptionInfo *exception = MagickCore::AcquireExceptionInfo();
       MagickCore::Image *newImage = MagickCore::CropImageToTiles(output->at(i).constImage(), std::string(region).c_str(), exception);
@@ -119,20 +121,22 @@ XPtrImage magick_image_crop( XPtrImage input, Rcpp::CharacterVector geometry,
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_extent( XPtrImage input, Rcpp::CharacterVector geometry,
-                               Rcpp::CharacterVector gravity, Rcpp::CharacterVector color){
+[[cpp11::register]] XPtrImage magick_image_extent(XPtrImage input,
+                                                  cpp11::strings geometry,
+                                                  cpp11::strings gravity,
+                                                  cpp11::strings color) {
   XPtrImage output = copy(input);
-  for(size_t i = 0; i < output->size(); i++){
-    output->at(i).extent(Geom(geometry.at(0)), Color(color.at(0)), Gravity(gravity.at(0)));
+  for (size_t i = 0; i < output->size(); i++) {
+    output->at(i).extent(Geom(std::string(geometry.at(0)).c_str()),
+                         Color(std::string(color.at(0)).c_str()),
+                         Gravity(std::string(gravity.at(0)).c_str()));
   }
   return output;
 }
 
-// [[Rcpp::export]]
-Rcpp::CharacterVector magick_image_artifact(XPtrImage input, std::string name){
+[[cpp11::register]] cpp11::strings magick_image_artifact(XPtrImage input, std::string name){
 #if MagickLibVersion >= 0x687
-  Rcpp::CharacterVector artifacts(input->size());
+  cpp11::writable::strings artifacts(input->size());
   for(size_t i = 0; i < input->size(); i++){
     artifacts.at(i) = input->at(i).artifact(name);
   }

@@ -1,7 +1,6 @@
-#include "magick_types.h"
+#include "00_magick_types.h"
 
-// [[Rcpp::export]]
-XPtrImage magick_image_animate( XPtrImage input, Rcpp::IntegerVector delay,
+[[cpp11::register]] XPtrImage magick_image_animate( XPtrImage input, cpp11::integers delay,
                                 size_t iter, const char * method,
                                 bool optimize){
   XPtrImage output = create();
@@ -24,11 +23,11 @@ XPtrImage magick_image_animate( XPtrImage input, Rcpp::IntegerVector delay,
     for_each ( output->begin(), output->end(), Magick::animationDelayImage(delay[0]));
   } else {
     Image::iterator outit = output->begin();
-    Rcpp::IntegerVector::iterator delit = delay.begin();
+    cpp11::r_vector<int>::const_iterator delit = delay.begin();
     while (outit != output->end()) {
       outit->animationDelay(*delit);
-      outit++;
-      delit++;
+      ++outit;
+      ++delit;
     }
   }
 
@@ -37,23 +36,20 @@ XPtrImage magick_image_animate( XPtrImage input, Rcpp::IntegerVector delay,
 }
 
 
-// [[Rcpp::export]]
-XPtrImage magick_image_coalesce( XPtrImage input){
+[[cpp11::register]] XPtrImage magick_image_coalesce( XPtrImage input){
   XPtrImage output = create();
   // this fixes optimized gif images
   coalesceImages( output.get(), input->begin(), input->end());
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_morph( XPtrImage image, int frames){
+[[cpp11::register]] XPtrImage magick_image_morph( XPtrImage image, int frames){
   XPtrImage out = create();
   morphImages( out.get(), image->begin(), image->end(), frames);
   return out;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_mosaic( XPtrImage input, Rcpp::CharacterVector composite){
+[[cpp11::register]] XPtrImage magick_image_mosaic( XPtrImage input, cpp11::strings composite){
   XPtrImage image = copy(input);
   if(composite.size()){
     for_each ( image->begin(), image->end(), Magick::commentImage("")); //required to force copy; weird bug in IM?
@@ -67,8 +63,7 @@ XPtrImage magick_image_mosaic( XPtrImage input, Rcpp::CharacterVector composite)
   return out;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_flatten( XPtrImage input, Rcpp::CharacterVector composite){
+[[cpp11::register]] XPtrImage magick_image_flatten( XPtrImage input, cpp11::strings composite){
   Frame frame;
   XPtrImage image = copy(input);
   if(composite.size()){
@@ -82,8 +77,7 @@ XPtrImage magick_image_flatten( XPtrImage input, Rcpp::CharacterVector composite
   return out;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_average( XPtrImage image){
+[[cpp11::register]] XPtrImage magick_image_average( XPtrImage image){
   Frame frame;
   averageImages( &frame, image->begin(), image->end());
   frame.myRepage();
@@ -92,14 +86,14 @@ XPtrImage magick_image_average( XPtrImage image){
   return out;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_append( XPtrImage image, bool stack){
+[[cpp11::register]] XPtrImage magick_image_append(XPtrImage image, bool stack) {
   Frame frame;
-  appendImages( &frame, image->begin(), image->end(), stack);
+  appendImages(&frame, image->begin(), image->end(), stack);
   frame.myRepage();
   Image *out = new Image();
   out->push_back(frame);
   XPtrImage ptr(out);
-  ptr.attr("class") = Rcpp::CharacterVector::create("magick-image");
+  cpp11::sexp ptr_sexp(ptr);
+  ptr_sexp.attr("class") = cpp11::writable::strings({"magick-image"});
   return ptr;
 }

@@ -3,7 +3,7 @@
  * See API: https://www.imagemagick.org/Magick++/STL.html
  */
 
-#include "magick_types.h"
+#include "00_magick_types.h"
 
 Magick::Geometry Geom(size_t width, size_t height, size_t x, size_t y){
   Magick::Geometry geom(width, height, x, y);
@@ -153,30 +153,26 @@ Magick::Point Point(const char * str){
 }
 #endif
 
-// [[Rcpp::export]]
-XPtrImage magick_image_noise( XPtrImage input, const char * noisetype){
+[[cpp11::register]] XPtrImage magick_image_noise( XPtrImage input, const char * noisetype){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::addNoiseImage(Noise(noisetype)));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_blur( XPtrImage input, const double radius = 1, const double sigma = 0.5){
+[[cpp11::register]] XPtrImage magick_image_blur( XPtrImage input, const double radius = 1, const double sigma = 0.5){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::blurImage(radius, sigma));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_motion_blur( XPtrImage input, const double radius = 1, const double sigma = 0.5, const double angle = 0.0){
+[[cpp11::register]] XPtrImage magick_image_motion_blur( XPtrImage input, const double radius = 1, const double sigma = 0.5, const double angle = 0.0){
   XPtrImage output = copy(input);
   for(size_t i = 0; i < output->size(); i++)
     output->at(i).motionBlur(radius, sigma, angle);
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_charcoal( XPtrImage input, const double radius = 1, const double sigma = 0.5){
+[[cpp11::register]] XPtrImage magick_image_charcoal( XPtrImage input, const double radius = 1, const double sigma = 0.5){
   XPtrImage output = copy(input);
 #if MagickLibVersion >= 0x700
   for(size_t i = 0; i < output->size(); i++){
@@ -192,8 +188,7 @@ XPtrImage magick_image_charcoal( XPtrImage input, const double radius = 1, const
 }
 
 /* Added in f78d1802df605fe2a0bd2551f4e4a27702e12828 */
-// [[Rcpp::export]]
-XPtrImage magick_image_deskew( XPtrImage input, double treshold){
+[[cpp11::register]] XPtrImage magick_image_deskew( XPtrImage input, double treshold){
   XPtrImage output = copy(input);
 #if MagickLibVersion >= 0x686
   for (Iter it = output->begin(); it != output->end(); ++it)
@@ -204,23 +199,21 @@ XPtrImage magick_image_deskew( XPtrImage input, double treshold){
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_emboss( XPtrImage input, const double radius = 1, const double sigma = 0.5){
+[[cpp11::register]] XPtrImage magick_image_emboss( XPtrImage input, const double radius = 1, const double sigma = 0.5){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::embossImage(radius, sigma));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_fill( XPtrImage input, const char * color, const char * point,
-                             double fuzz_percent, Rcpp::CharacterVector border_color){
+[[cpp11::register]] XPtrImage magick_image_fill( XPtrImage input, const char * color, const char * point,
+                             double fuzz_percent, cpp11::strings border_color){
   XPtrImage output = copy(input);
   double fuzz = fuzz_pct_to_abs(fuzz_percent);
   if(fuzz != 0)
     for_each ( output->begin(), output->end(), Magick::colorFuzzImage( fuzz ));
   if(border_color.size()){
     for_each ( output->begin(), output->end(), Magick::floodFillColorImage(
-        Magick::Geometry(Geom(point)), Color(color), Color(border_color[0])));
+        Magick::Geometry(Geom(point)), Color(color), Color(std::string(border_color[0]).c_str())));
   } else {
     for_each ( output->begin(), output->end(), Magick::floodFillColorImage(
         Magick::Geometry(Geom(point)), Color(color)));
@@ -230,8 +223,7 @@ XPtrImage magick_image_fill( XPtrImage input, const char * color, const char * p
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_negate( XPtrImage input){
+[[cpp11::register]] XPtrImage magick_image_negate( XPtrImage input){
   XPtrImage output = copy(input);
 #if MagickLibVersion >= 0x700
   for(size_t i = 0; i < output->size(); i++)
@@ -242,24 +234,21 @@ XPtrImage magick_image_negate( XPtrImage input){
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_oilpaint( XPtrImage input, size_t radius){
+[[cpp11::register]] XPtrImage magick_image_oilpaint( XPtrImage input, size_t radius){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::oilPaintImage(radius));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_implode( XPtrImage input, double factor){
+[[cpp11::register]] XPtrImage magick_image_implode( XPtrImage input, double factor){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::implodeImage(factor));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_format( XPtrImage input, Rcpp::CharacterVector format, Rcpp::CharacterVector type,
-                               Rcpp::CharacterVector space, Rcpp::IntegerVector depth, Rcpp::LogicalVector antialias,
-                               Rcpp::LogicalVector matte, Rcpp::CharacterVector interlace, Rcpp::RawVector profile){
+[[cpp11::register]] XPtrImage magick_image_format( XPtrImage input, cpp11::strings format, cpp11::strings type,
+                               cpp11::strings space, cpp11::integers depth, cpp11::logicals antialias,
+                               cpp11::logicals matte, cpp11::strings interlace, cpp11::raws profile){
   XPtrImage output = copy(input);
   if(antialias.size()){
     for (Iter it = output->begin(); it != output->end(); ++it)
@@ -267,63 +256,59 @@ XPtrImage magick_image_format( XPtrImage input, Rcpp::CharacterVector format, Rc
     for_each ( output->begin(), output->end(), Magick::myAntiAliasImage(antialias.at(0)));
   }
   if(profile.size()){
-    Magick::Blob blob(profile.begin(), profile.size());
+    Magick::Blob blob(profile.data(), profile.size());
     for (Iter it = output->begin(); it != output->end(); ++it)
       it->iccColorProfile(blob);
   }
   if(matte.size())
     for_each ( output->begin(), output->end(), Magick::myMatteImage(matte.at(0)));
   if(type.size())
-    for_each ( output->begin(), output->end(), Magick::typeImage(Type(type.at(0))));
+    for_each ( output->begin(), output->end(), Magick::typeImage(Type(std::string(type.at(0)).c_str())));
   if(space.size())
-    for_each ( output->begin(), output->end(), Magick::colorSpaceImage(ColorSpace(space.at(0))));
+    for_each ( output->begin(), output->end(), Magick::colorSpaceImage(ColorSpace(std::string(space.at(0)).c_str())));
   if(depth.size())
     for_each ( output->begin(), output->end(), Magick::depthImage(depth.at(0)));
   if(interlace.size())
-    for_each ( output->begin(), output->end(), Magick::interlaceTypeImage(Interlace(interlace.at(0))));
+    for_each ( output->begin(), output->end(), Magick::interlaceTypeImage(Interlace(std::string(interlace.at(0)).c_str())));
   if(format.size())
     for_each ( output->begin(), output->end(), Magick::magickImage(std::string(format.at(0))));
 
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_page( XPtrImage input, Rcpp::CharacterVector pagesize, Rcpp::CharacterVector density){
+[[cpp11::register]] XPtrImage magick_image_page( XPtrImage input, cpp11::strings pagesize, cpp11::strings density){
   XPtrImage output = copy(input);
   if(pagesize.size())
-    for_each (output->begin(), output->end(), Magick::pageImage(Geom(pagesize[0])));
+    for_each (output->begin(), output->end(), Magick::pageImage(Geom(std::string(pagesize[0]).c_str())));
   if(density.size())
-    for_each (output->begin(), output->end(), Magick::densityImage(Point(density[0])));
+    for_each (output->begin(), output->end(), Magick::densityImage(Point(std::string(density[0]).c_str())));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_repage( XPtrImage input){
+[[cpp11::register]] XPtrImage magick_image_repage( XPtrImage input){
   XPtrImage output = copy(input);
   for_each (output->begin(), output->end(), Magick::pageImage(Magick::Geometry()));
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_orient( XPtrImage input, Rcpp::CharacterVector orientation){
+[[cpp11::register]] XPtrImage magick_image_orient( XPtrImage input, cpp11::strings orientation){
   XPtrImage output = copy(input);
   for(size_t i = 0; i < output->size(); i++){
-    if(orientation.length()){
-      output->at(i).orientation(Orientation(orientation.at(0)));
+    if(orientation.size()){
+      output->at(i).orientation(Orientation(std::string(orientation.at(0)).c_str()));
     } else {
       //https://github.com/ImageMagick/ImageMagick/commit/b559cab
 #if MagickLibVersion >= 0x686
       output->at(i).autoOrient();
 #else
-      Rcpp::warning("ImageMagick too old to support autoOrient (requires >= 6.8.6)");
+      cpp11::warning("ImageMagick too old to support autoOrient (requires >= 6.8.6)");
 #endif
     }
   }
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_despeckle( XPtrImage input, int times){
+[[cpp11::register]] XPtrImage magick_image_despeckle( XPtrImage input, int times){
   XPtrImage output = copy(input);
   for (int i=0; i < times; i++) {
     for_each ( output->begin(), output->end(), Magick::despeckleImage());
@@ -331,8 +316,7 @@ XPtrImage magick_image_despeckle( XPtrImage input, int times){
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_reducenoise( XPtrImage input, const size_t radius){
+[[cpp11::register]] XPtrImage magick_image_reducenoise( XPtrImage input, const size_t radius){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::reduceNoiseImage(radius));
   return output;
@@ -341,13 +325,12 @@ XPtrImage magick_image_reducenoise( XPtrImage input, const size_t radius){
  * https://github.com/ImageMagick/ImageMagick/commit/903e501876d405ffd6f9f38f5e72db9acc3d15e8
  */
 
-// [[Rcpp::export]]
-XPtrImage magick_image_annotate( XPtrImage input, Rcpp::CharacterVector text, const char * gravity,
+[[cpp11::register]] XPtrImage magick_image_annotate( XPtrImage input, cpp11::strings text, const char * gravity,
                                  const char * location, double rot, double size, const char * font,
                                  const char * style, double weight, double kerning,
-                                 Rcpp::CharacterVector decoration, Rcpp::CharacterVector color,
-                                 Rcpp::CharacterVector strokecolor, Rcpp::IntegerVector strokewidth,
-                                 Rcpp::CharacterVector boxcolor){
+                                 cpp11::strings decoration, cpp11::strings color,
+                                 cpp11::strings strokecolor, cpp11::integers strokewidth,
+                                 cpp11::strings boxcolor){
   XPtrImage output = copy(input);
   typedef std::container<Magick::Drawable> drawlist;
   Magick::Geometry pos(location);
@@ -357,19 +340,19 @@ XPtrImage magick_image_annotate( XPtrImage input, Rcpp::CharacterVector text, co
   draw.push_back(Magick::DrawableGravity(Gravity(gravity)));
   draw.push_back(Magick::DrawableTextAntialias(true));
   if(strokecolor.size())
-    draw.push_back(Magick::DrawableStrokeColor(Color(strokecolor[0])));
+    draw.push_back(Magick::DrawableStrokeColor(Color(std::string(strokecolor[0]).c_str())));
   if(strokewidth.size())
     draw.push_back(Magick::DrawableStrokeWidth(strokewidth[0]));
   if(color.size())
-    draw.push_back(Magick::DrawableFillColor(Color(color[0])));
+    draw.push_back(Magick::DrawableFillColor(Color(std::string(color[0]).c_str())));
   if(boxcolor.size())
-    draw.push_back(Magick::DrawableTextUnderColor(Color(boxcolor[0])));
+    draw.push_back(Magick::DrawableTextUnderColor(Color(std::string(boxcolor[0]).c_str())));
 #if MagickLibVersion >= 0x689
   if(kerning != 0)
     draw.push_back(Magick::DrawableTextKerning(kerning));
 #endif
   if(decoration.size())
-    draw.push_back(Magick::DrawableTextDecoration(FontDecoration(decoration[0])));
+    draw.push_back(Magick::DrawableTextDecoration(FontDecoration(std::string(decoration[0]).c_str())));
   draw.push_back(Magick::DrawablePointSize(size));
   draw.push_back(Magick::DrawableFont(normalize_font(font), FontStyle(style), weight, Magick::NormalStretch));
   if(rot){
@@ -394,13 +377,12 @@ XPtrImage magick_image_annotate( XPtrImage input, Rcpp::CharacterVector text, co
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_compare( XPtrImage input, XPtrImage reference_image, const char  * metric, double fuzz_percent){
+[[cpp11::register]] XPtrImage magick_image_compare( XPtrImage input, XPtrImage reference_image, const char  * metric, double fuzz_percent){
 #if MagickLibVersion < 0x687
   throw std::runtime_error("imagemagick too old does not support compare metrics");
 #else
   XPtrImage output = copy(input);
-  Rcpp::NumericVector distortion(input->size());
+  cpp11::writable::integers distortion(input->size());
   Magick::MetricType compare_metric = strlen(metric) ? Metric(metric) : Magick::myUndefinedMetric;
   for_each ( output->begin(), output->end(), Magick::colorFuzzImage( fuzz_pct_to_abs(fuzz_percent) ));
   for(size_t i = 0; i < input->size(); i++){
@@ -409,15 +391,18 @@ XPtrImage magick_image_compare( XPtrImage input, XPtrImage reference_image, cons
     distortion.at(i) = val;
   }
   for_each ( output->begin(), output->end(), Magick::colorFuzzImage( 0 ));
-  output.attr("distortion") = distortion;
   return output;
 #endif
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_distort(XPtrImage input, std::string method, Rcpp::NumericVector values, bool bestfit){
-  XPtrImage out = copy(input);;
-  for_each (out->begin(), out->end(),
-            Magick::distortImage(DistortionMethod(method.c_str()), values.size(), values.begin(), bestfit));
+[[cpp11::register]] XPtrImage magick_image_distort(XPtrImage input,
+                                                   std::string method,
+                                                   cpp11::doubles values,
+                                                   bool bestfit) {
+  XPtrImage out = copy(input);
+  for_each(out->begin(), out->end(), [&](Magick::Image &image) {
+    image.distort(DistortionMethod(method.c_str()), values.size(), REAL(values),
+                  bestfit);
+  });
   return out;
 }

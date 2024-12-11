@@ -3,7 +3,7 @@
  * See API: https://www.imagemagick.org/Magick++/STL.html
  */
 
-#include "magick_types.h"
+#include "00_magick_types.h"
 
 Magick::CompressionType Compression(const char * str){
   ssize_t val = MagickCore::ParseCommandOption( MagickCore::MagickCompressOptions, Magick::MagickFalse, str);
@@ -30,45 +30,43 @@ XPtrImage magick_image_bitmap(void * data, Magick::StorageType type, size_t slic
   return image;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readbitmap_native(Rcpp::IntegerMatrix x){
-  Rcpp::IntegerVector dims(x.attr("dim"));
-  return magick_image_bitmap(x.begin(), Magick::CharPixel, 4, dims[1], dims[0]);
+[[cpp11::register]] XPtrImage magick_image_readbitmap_native(cpp11::integers_matrix<> x){
+  cpp11::writable::integers dims = as_cpp<cpp11::integers>(x.attr("dim"));
+  return magick_image_bitmap(x.data(), Magick::CharPixel, 4, dims[1], dims[0]);
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readbitmap_raster1(Rcpp::CharacterMatrix x){
+[[cpp11::register]] XPtrImage magick_image_readbitmap_raster1(
+    cpp11::strings_matrix<> x) {
   std::vector<rcolor> y(x.size());
-  for(size_t i = 0; i < y.size(); i++)
-    y[i] = R_GE_str2col(x[i]);
-  Rcpp::IntegerVector dims(x.attr("dim"));
+  for (size_t i = 0; i < y.size(); i++)
+    y[i] = R_GE_str2col(std::string(x[i / x.ncol()][i % x.ncol()]).c_str());
+  cpp11::writable::integers dims =
+      cpp11::as_cpp<cpp11::writable::integers>(x.attr("dim"));
   return magick_image_bitmap(y.data(), Magick::CharPixel, 4, dims[0], dims[1]);
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readbitmap_raster2(Rcpp::CharacterMatrix x){
+[[cpp11::register]] XPtrImage magick_image_readbitmap_raster2(
+    cpp11::strings_matrix<> x) {
   std::vector<rcolor> y(x.size());
-  for(size_t i = 0; i < y.size(); i++)
-    y[i] = R_GE_str2col(x[i]);
-  Rcpp::IntegerVector dims(x.attr("dim"));
+  for (size_t i = 0; i < y.size(); i++)
+    y[i] = R_GE_str2col(std::string(x[i / x.ncol()][i % x.ncol()]).c_str());
+  cpp11::writable::integers dims =
+      cpp11::as_cpp<cpp11::writable::integers>(x.attr("dim"));
   return magick_image_bitmap(y.data(), Magick::CharPixel, 4, dims[1], dims[0]);
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readbitmap_raw(Rcpp::RawVector x){
-  Rcpp::IntegerVector dims(x.attr("dim"));
-  return magick_image_bitmap(x.begin(), Magick::CharPixel, dims[0], dims[1], dims[2]);
+[[cpp11::register]] XPtrImage magick_image_readbitmap_raw(cpp11::raws x){
+  cpp11::writable::integers dims = as_cpp<cpp11::integers>(x.attr("dim"));
+  return magick_image_bitmap(x.data(), Magick::CharPixel, dims[0], dims[1], dims[2]);
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readbitmap_double(Rcpp::NumericVector x){
-  Rcpp::IntegerVector dims(x.attr("dim"));
-  return magick_image_bitmap(x.begin(), Magick::DoublePixel, dims[0], dims[1], dims[2]);
+[[cpp11::register]] XPtrImage magick_image_readbitmap_double(cpp11::doubles x){
+  cpp11::writable::integers dims = as_cpp<cpp11::integers>(x.attr("dim"));
+  return magick_image_bitmap(x.data(), Magick::DoublePixel, dims[0], dims[1], dims[2]);
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readbin(Rcpp::RawVector x, Rcpp::CharacterVector density, Rcpp::IntegerVector depth,
-                               bool strip, Rcpp::CharacterVector defines){
+[[cpp11::register]] XPtrImage magick_image_readbin(cpp11::raws x, cpp11::strings density, cpp11::integers depth,
+                               bool strip, cpp11::strings defines){
   XPtrImage image = create();
 #if MagickLibVersion >= 0x689
   Magick::ReadOptions opts = Magick::ReadOptions();
@@ -80,22 +78,23 @@ XPtrImage magick_image_readbin(Rcpp::RawVector x, Rcpp::CharacterVector density,
   if(depth.size())
     opts.depth(depth.at(0));
   if(defines.size()){
-    Rcpp::CharacterVector names = defines.names();
+    cpp11::strings names = defines.names();
     for(int i = 0; i < defines.size(); i++)
-      MagickCore::SetImageOption(opts.imageInfo(), names.at(i), defines.at(i));
+      MagickCore::SetImageOption(opts.imageInfo(),
+                                 std::string(names.at(i)).c_str(),
+                                 std::string(defines.at(i)).c_str());
   }
-  Magick::readImages(image.get(), Magick::Blob(x.begin(), x.length()), opts);
+  Magick::readImages(image.get(), Magick::Blob(x.data(), x.size()), opts);
 #else
-  Magick::readImages(image.get(), Magick::Blob(x.begin(), x.length()));
+  Magick::readImages(image.get(), Magick::Blob(x.data(), x.size()));
 #endif
   if(strip)
     for_each (image->begin(), image->end(), Magick::stripImage());
   return image;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_readpath(Rcpp::CharacterVector paths, Rcpp::CharacterVector density, Rcpp::IntegerVector depth,
-                                bool strip, Rcpp::CharacterVector defines){
+[[cpp11::register]] XPtrImage magick_image_readpath(cpp11::strings paths, cpp11::strings density, cpp11::integers depth,
+                                bool strip, cpp11::strings defines){
   XPtrImage image = create();
 #if MagickLibVersion >= 0x689
   Magick::ReadOptions opts = Magick::ReadOptions();
@@ -107,9 +106,11 @@ XPtrImage magick_image_readpath(Rcpp::CharacterVector paths, Rcpp::CharacterVect
   if(depth.size())
     opts.depth(depth.at(0));
   if(defines.size()){
-    Rcpp::CharacterVector names = defines.names();
+    cpp11::strings names = defines.names();
     for(int i = 0; i < defines.size(); i++)
-      MagickCore::SetImageOption(opts.imageInfo(), names.at(i), defines.at(i));
+      MagickCore::SetImageOption(opts.imageInfo(),
+                                 std::string(names.at(i)).c_str(),
+                                 std::string(defines.at(i)).c_str());
   }
   for(int i = 0; i < paths.size(); i++)
     Magick::readImages(image.get(), std::string(paths[i]), opts);
@@ -122,24 +123,22 @@ XPtrImage magick_image_readpath(Rcpp::CharacterVector paths, Rcpp::CharacterVect
   return image;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_read_list(Rcpp::List list){
+[[cpp11::register]] XPtrImage magick_image_read_list(cpp11::list list){
   XPtrImage image = create();
   for(int i = 0; i < list.size(); i++) {
     if(TYPEOF(list[i]) != RAWSXP)
       throw std::runtime_error("magick_image_read_list can only read raw vectors");
-    Rcpp::RawVector x = list[i];
-    Magick::readImages(image.get(), Magick::Blob(x.begin(), x.length()));
+    cpp11::raws x = list[i];
+    Magick::readImages(image.get(), Magick::Blob(x.data(), x.size()));
   }
   return image;
 }
 
-// [[Rcpp::export]]
-Rcpp::RawVector magick_image_write( XPtrImage input, Rcpp::CharacterVector format, Rcpp::IntegerVector quality,
-                                    Rcpp::IntegerVector depth, Rcpp::CharacterVector density, Rcpp::CharacterVector comment,
-                                    Rcpp::CharacterVector compression){
+[[cpp11::register]] cpp11::raws magick_image_write( XPtrImage input, cpp11::strings format, cpp11::integers quality,
+                                    cpp11::integers depth, cpp11::strings density, cpp11::strings comment,
+                                    cpp11::strings compression){
   if(!input->size())
-    return Rcpp::RawVector(0);
+    return cpp11::raws(0);
   XPtrImage image = copy(input);
 #if MagickLibVersion >= 0x691
   //suppress write warnings see #74 and #116
@@ -153,7 +152,7 @@ Rcpp::RawVector magick_image_write( XPtrImage input, Rcpp::CharacterVector forma
     for_each ( image->begin(), image->end(), Magick::depthImage(depth[0]));
   if(density.size()){
     for_each ( image->begin(), image->end(), Magick::resolutionUnitsImage(Magick::PixelsPerInchResolution));
-    for_each ( image->begin(), image->end(), Magick::densityImage(Point(density[0])));
+    for_each ( image->begin(), image->end(), Magick::densityImage(Point(std::string(density[0]).c_str())));
   }
   if(comment.size())
     for_each ( image->begin(), image->end(), Magick::commentImage(std::string(comment.at(0))));
@@ -161,13 +160,12 @@ Rcpp::RawVector magick_image_write( XPtrImage input, Rcpp::CharacterVector forma
     for_each ( image->begin(), image->end(), Magick::compressTypeImage(Compression(std::string(compression.at(0)).c_str())));
   Magick::Blob output;
   writeImages( image->begin(), image->end(),  &output );
-  Rcpp::RawVector res(output.length());
-  std::memcpy(res.begin(), output.data(), output.length());
+  cpp11::writable::raws res(output.length());
+  std::memcpy(res.data(), output.data(), output.length());
   return res;
 }
 
-// [[Rcpp::export]]
-Rcpp::RawVector magick_image_write_frame(XPtrImage input, const char * format, size_t i = 1){
+[[cpp11::register]] cpp11::raws magick_image_write_frame(XPtrImage input, const char * format, size_t i = 1){
   if(input->size() < 1)
     throw std::runtime_error("Image must have at least 1 frame to write a bitmap");
   Frame frame = input->at(i-1); //zero indexing!
@@ -176,20 +174,22 @@ Rcpp::RawVector magick_image_write_frame(XPtrImage input, const char * format, s
   size_t height = size.height();
   Magick::Blob output;
   frame.write(&output, format, 8L);
-  if(output.length() == 0)
+  size_t output_len = output.length();
+  if (output_len == 0)
     throw std::runtime_error("Unsupported raw format: " + std::string(format));
-  if(output.length() % (width * height))
+  if (output_len % (width * height))
     throw std::runtime_error("Dimensions do not add up, '" + std::string(format) + "' may not be a raw format");
-  size_t slices = output.length() / (width * height);
-  Rcpp::RawVector res(output.length());
-  memcpy(res.begin(), output.data(), output.length());
-  res.attr("class") = Rcpp::CharacterVector::create("bitmap", format);
-  res.attr("dim") = Rcpp::NumericVector::create(slices, width, height);
+  size_t slices = output_len / (width * height);
+  cpp11::writable::raws res(output_len);
+  memcpy(res.data(), output.data(), output_len);
+  res.attr("class") = cpp11::writable::strings({"bitmap", format});
+  res.attr("dim") = cpp11::writable::integers({static_cast<int>(slices),
+                                               static_cast<int>(width),
+                                               static_cast<int>(height)});
   return res;
 }
 
-// [[Rcpp::export]]
-Rcpp::IntegerVector magick_image_write_integer(XPtrImage input){
+[[cpp11::register]] cpp11::integers magick_image_write_integer(XPtrImage input){
   if(input->size() != 1)
     throw std::runtime_error("Image must have single frame to write a native raster");
   Frame frame = input->front();
@@ -198,15 +198,16 @@ Rcpp::IntegerVector magick_image_write_integer(XPtrImage input){
   size_t height = size.height();
   Magick::Blob output;
   frame.write(&output, "RGBA", 8L);
-  Rcpp::IntegerVector res(output.length() / 4);
-  memcpy(res.begin(), output.data(), output.length());
-  res.attr("class") = Rcpp::CharacterVector::create("nativeRaster");
-  res.attr("dim") = Rcpp::NumericVector::create(height, width);
+  size_t output_len = output.length();
+  cpp11::writable::integers res(output_len / 4);
+  memcpy(res.data(), output.data(), output_len);
+  res.attr("class") = cpp11::writable::strings({"nativeRaster"});
+  res.attr("dim") = cpp11::writable::integers(
+      {static_cast<int>(height), static_cast<int>(width)});
   return res;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_display( XPtrImage image, bool animate){
+[[cpp11::register]] XPtrImage magick_image_display( XPtrImage image, bool animate){
 #ifndef MAGICKCORE_X11_DELEGATE
   throw std::runtime_error("ImageMagick was built without X11 support");
 #else
@@ -221,40 +222,36 @@ XPtrImage magick_image_display( XPtrImage image, bool animate){
 }
 
 /* Not very useful. Requires imagemagick configuration with --enable-fftw=yes */
-// [[Rcpp::export]]
-XPtrImage magick_image_fft( XPtrImage image){
+[[cpp11::register]] XPtrImage magick_image_fft( XPtrImage image){
   XPtrImage out = create();
   if(image->size())
     forwardFourierTransformImage(out.get(), image->front());
   return out;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_montage( XPtrImage image, Rcpp::CharacterVector geometry, Rcpp::CharacterVector tile,
-                                Rcpp::CharacterVector gravity, std::string bg = "white", bool shadow = false){
+[[cpp11::register]] XPtrImage magick_image_montage( XPtrImage image, cpp11::strings geometry, cpp11::strings tile,
+                                cpp11::strings gravity, std::string bg = "white", bool shadow = false){
   XPtrImage out = create();
   Magick::Montage opts = Magick::Montage();
-  if(geometry.length())
-    opts.geometry(Geom(geometry.at(0)));
-  if(tile.length())
-    opts.tile(Geom(tile.at(0)));
-  if(gravity.length())
-    opts.gravity(Gravity(gravity.at(0)));
+  if(geometry.size())
+    opts.geometry(Geom(std::string(geometry.at(0)).c_str()));
+  if(tile.size())
+    opts.tile(Geom(std::string(tile.at(0)).c_str()));
+  if(gravity.size())
+    opts.gravity(Gravity(std::string(gravity.at(0)).c_str()));
   opts.shadow(shadow);
   opts.backgroundColor(bg);
   montageImages(out.get(), image->begin(), image->end(), opts);
   return out;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_strip( XPtrImage input){
+[[cpp11::register]] XPtrImage magick_image_strip( XPtrImage input){
   XPtrImage output = copy(input);
   for_each (output->begin(), output->end(), Magick::stripImage());
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_separate( XPtrImage input, const char * channel){
+[[cpp11::register]] XPtrImage magick_image_separate( XPtrImage input, const char * channel){
   XPtrImage output = create();
 #if MagickLibVersion >= 0x687
   separateImages( output.get(), input->front(), Channel(channel));
@@ -264,8 +261,7 @@ XPtrImage magick_image_separate( XPtrImage input, const char * channel){
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_combine( XPtrImage input, const char * colorspace, const char * channel){
+[[cpp11::register]] XPtrImage magick_image_combine( XPtrImage input, const char * colorspace, const char * channel){
   Frame x;
 #if MagickLibVersion >= 0x700
   combineImages(&x, input->begin(), input->end(), Channel(channel), ColorSpace(colorspace));
@@ -280,19 +276,18 @@ XPtrImage magick_image_combine( XPtrImage input, const char * colorspace, const 
   return output;
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_set_define( XPtrImage input, Rcpp::CharacterVector format,
-                                   Rcpp::CharacterVector name, Rcpp::CharacterVector value){
+[[cpp11::register]] XPtrImage magick_image_set_define( XPtrImage input, cpp11::strings format,
+                                   cpp11::strings name, cpp11::strings value){
   //NB: do NOT copy; modifies
-  if(!format.length() || !name.length() || !value.length())
+  if(!format.size() || !name.size() || !value.size())
     throw std::runtime_error("Missing format or key");
   std::string val(value.at(0));
   std::string fmt(format.at(0));
   std::string key(name.at(0));
   for(size_t i = 0; i < input->size(); i++){
-    if(!val.length()){
+    if(!val.size()){
       input->at(i).defineSet(fmt, key, true); // empty string
-    } else if(Rcpp::CharacterVector::is_na(value.at(0))) {
+    } else if (cpp11::is_na(value.at(0))) {
       input->at(i).defineSet(fmt, key, false); // unset
     } else {
       input->at(i).defineValue(fmt, key, val);

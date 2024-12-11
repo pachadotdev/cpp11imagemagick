@@ -3,10 +3,9 @@
  * See API: https://www.imagemagick.org/Magick++/STL.html
  */
 
-#include "magick_types.h"
+#include "00_magick_types.h"
 
-// [[Rcpp::export]]
-XPtrImage magick_image_edge( XPtrImage input, size_t radius){
+[[cpp11::register]] XPtrImage magick_image_edge( XPtrImage input, size_t radius){
   XPtrImage output = copy(input);
   for_each ( output->begin(), output->end(), Magick::edgeImage(radius));
   return output;
@@ -15,8 +14,7 @@ XPtrImage magick_image_edge( XPtrImage input, size_t radius){
 
 // https://github.com/ImageMagick/ImageMagick6/commit/acfd403ca7ca38c3a06bdd81ca5b4e41b12e11bf
 
-// [[Rcpp::export]]
-XPtrImage magick_image_canny( XPtrImage input, std::string geomstr){
+[[cpp11::register]] XPtrImage magick_image_canny( XPtrImage input, std::string geomstr){
 #if MagickLibVersion >= 0x689
   Magick::Geometry geom(Geom(geomstr.c_str()));
   if(!geom.percent())
@@ -34,8 +32,7 @@ XPtrImage magick_image_canny( XPtrImage input, std::string geomstr){
 #endif
 }
 
-// [[Rcpp::export]]
-XPtrImage magick_image_houghline( XPtrImage input, std::string geomstr,
+[[cpp11::register]] XPtrImage magick_image_houghline( XPtrImage input, std::string geomstr,
                                   std::string col, std::string bg, double lwd){
 #if MagickLibVersion >= 0x689
   Magick::Geometry geom(Geom(geomstr.c_str()));

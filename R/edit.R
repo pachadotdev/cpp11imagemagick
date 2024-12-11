@@ -25,8 +25,6 @@
 #' explicitly to release the memory immediately. This is usually only needed if you create
 #' a lot of images in a short period of time, and you might run out of memory.
 #'
-#' @importFrom Rcpp sourceCpp
-#' @useDynLib magick
 #' @export
 #' @family image
 #' @rdname editing

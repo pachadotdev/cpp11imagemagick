@@ -1,0 +1,985 @@
+── R CMD INSTALL ─────────────────────────────────────────────────────────────────────────────────────────────
+  ─  installing *source* package ‘cpp11imagemagick’ ...
+     ** using staged installation
+     Found pkg-config cflags and libs!
+     Using PKG_CFLAGS=-fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/include/x86_64-linux-gnu//ImageMagick-6 -I/usr/include/ImageMagick-6 -I/usr/include/x86_64-linux-gnu//ImageMagick-6 -I/usr/include/ImageMagick-6 -I/usr/include/x86_64-linux-gnu//ImageMagick-6 -I/usr/include/ImageMagick-6
+   Using PKG_LIBS=-lMagick++-6.Q16 -lMagickWand-6.Q16 -lMagickCore-6.Q16
+     ** libs
+     using C++ compiler: ‘g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0’
+     g++ -std=gnu++17 -I"/usr/share/R/include" -DNDEBUG -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16 -I/usr/include/x86_64-linux-gnu//ImageMagick-6 -I/usr/include/ImageMagick-6 -I/usr/include/x86_64-linux-gnu//ImageMagick-6 -I/usr/include/ImageMagick-6 -I/usr/include/x86_64-linux-gnu//ImageMagick-6 -I/usr/include/ImageMagick-6 -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include'    -fvisibility=hidden -fpic  -g -O2 -ffile-prefix-map=/build/r-base-2y82rL/r-base-4.4.1=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2  -UNDEBUG -Wall -pedantic -g -O0  -c cpp11.cpp -o cpp11.o
+     cpp11.cpp:9:1: error: ‘XPtrImage’ does not name a type
+       9 | XPtrImage magick_image_animate(XPtrImage input, cpp11::integers delay, size_t iter, const char * method, bool optimize);
+         | ^~~~~~~~~
+     cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_animate(SEXP, SEXP, SEXP, SEXP, SEXP)’:
+   cpp11.cpp:12:77: error: ‘XPtrImage’ was not declared in this scope
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                                             ^~~~~~~~~
+   cpp11.cpp:12:77: error: template argument 1 is invalid
+   cpp11.cpp:12:88: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+    12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::deca        12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+     In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+    12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_c        12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+          12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+     184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+       |                          ^~~~~           |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+     196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-library/4.4/c     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+     202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+    12 |     return cpp11::as_sexp(magick_image_animate(        12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:12:88: error: template argument 1 is invalid
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+     cpp11.cpp:12:27: error: ‘magick_image_animate’ was not declared in this scope
+      12 |     return cpp11::as_sexp(magick_image_animate(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(delay), cpp11::as_cpp<cpp11::decay_t<size_t>>(iter), cpp11::as_cpp<cpp11::decay_t<const char *>>(method), cpp11::as_cpp<cpp11::decay_t<bool>>(optimize)));
+         |                           ^~~~~~~~~~~~~~~~~~~~
+   cpp11.cpp: At global scope:
+   cpp11.cpp:16:1: error: ‘XPtrImage’ does not name a type
+      16 | XPtrImage magick_image_coalesce(XPtrImage input);
+         | ^~~~~~~~~
+   cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_coalesce(SEXP)’:
+   cpp11.cpp:19:78: error: ‘XPtrImage’ was not declared in this scope
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                                              ^~~~~~~~~
+   cpp11.cpp:19:78: error: template argument 1 is invalid
+     cpp11.cpp:19:89: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+    19 |     return cpp11::as_sexp(magick_image_coale        19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /home/pacha/R/x86_64-     In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                  from                      from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+     184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+   196 | enable       196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+     202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pach     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:19:89: error: template argument 1 is invalid
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+     cpp11.cpp:19:27: error: ‘magick_image_coalesce’ was not declared in this scope
+      19 |     return cpp11::as_sexp(magick_image_coalesce(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input)));
+         |                           ^~~~~~~~~~~~~~~~~~~~~
+   cpp11.cpp: At global scope:
+   cpp11.cpp:23:1: error: ‘XPtrImage’ does not name a type
+      23 | XPtrImage magick_image_morph(XPtrImage image, int frames);
+         | ^~~~~~~~~
+   cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_morph(SEXP, SEXP)’:
+   cpp11.cpp:26:75: error: ‘XPtrImage’ was not declared in this scope
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                                                           ^~~~~~~~~
+   cpp11.cpp:26:75: error: template argument 1 is invalid
+   cpp11.cpp:26:86: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+    26 |     return cpp11::as_sexp(magick_image_morph(cpp11        26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+       |                                 |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/     In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                  from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/i                      from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+     184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+     196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-lib     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+     202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+       |                                              ~~~~           |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:26:86: error: template argument 1 is invalid
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   cpp11.cpp:26:27: error: ‘magick_image_morph’ was not declared in this scope
+      26 |     return cpp11::as_sexp(magick_image_morph(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<int>>(frames)));
+         |                           ^~~~~~~~~~~~~~~~~~
+   cpp11.cpp: At global scope:
+   cpp11.cpp:30:1: error: ‘XPtrImage’ does not name a type
+      30 | XPtrImage magick_image_mosaic(XPtrImage input, cpp11::strings composite);
+         | ^~~~~~~~~
+     cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_mosaic(SEXP, SEXP)’:
+   cpp11.cpp:33:76: error: ‘XPtrImage’ was not declared in this scope
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                                            ^~~~~~~~~
+   cpp11.cpp:33:76: error: template argument 1 is invalid
+   cpp11.cpp:33:87: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                  from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/in                      from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_6     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11:     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+   184 | enable_if_c_string<       184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+     196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+   202 | enable_if_t<!s       202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                  from /home/pacha/R/x86_64-pc-linux-gnu-li                      from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:33:87: error: template argument 1 is invalid
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   cpp11.cpp:33:27: error: ‘magick_image_mosaic’ was not declared in this scope
+      33 |     return cpp11::as_sexp(magick_image_mosaic(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                           ^~~~~~~~~~~~~~~~~~~
+   cpp11.cpp: At global scope:
+   cpp11.cpp:37:1: error: ‘XPtrImage’ does not name a type
+      37 | XPtrImage magick_image_flatten(XPtrImage input, cpp11::strings composite);
+         | ^~~~~~~~~
+   cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_flatten(SEXP, SEXP)’:
+   cpp11.cpp:40:77: error: ‘XPtrImage’ was not declared in this scope
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                                             ^~~~~~~~~
+   cpp11.cpp:40:77: error: template argument 1 is invalid
+cpp11.cpp:40:88:      cpp11.cpp:40:88: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+cpp11.cpp:40     cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+    40 |     return cpp11::as_sexp(magick_image_        40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+    40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp        40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+     184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+       |                                             |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+     196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+     202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+    40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11:        40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> c     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:40:88: error: template argument 1 is invalid
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+     cpp11.cpp:40:27: error: ‘magick_image_flatten’ was not declared in this scope
+      40 |     return cpp11::as_sexp(magick_image_flatten(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(input), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(composite)));
+         |                           ^~~~~~~~~~~~~~~~~~~~
+   cpp11.cpp: At global scope:
+   cpp11.cpp:44:1: error: ‘XPtrImage’ does not name a type
+      44 | XPtrImage magick_image_average(XPtrImage image);
+         | ^~~~~~~~~
+   cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_average(SEXP)’:
+   cpp11.cpp:47:77: error: ‘XPtrImage’ was not declared in this scope
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                                             ^~~~~~~~~
+   cpp11.cpp:47:77: error: template argument 1 is invalid
+   cpp11.cpp:47:88: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+    47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(i        47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11     In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp1     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+     184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+       |                               |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+     196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+     202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+/home/pacha/R/x86_64-p     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                  from cp                      from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:47:88: error: template argument 1 is invalid
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   cpp11.cpp:47:27: error: ‘magick_image_average’ was not declared in this scope
+      47 |     return cpp11::as_sexp(magick_image_average(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image)));
+         |                           ^~~~~~~~~~~~~~~~~~~~
+   cpp11.cpp: At global scope:
+   cpp11.cpp:51:1: error: ‘XPtrImage’ does not name a type
+      51 | XPtrImage magick_image_append(XPtrImage image, bool stack);
+         | ^~~~~~~~~
+   cpp11.cpp: In function ‘SEXPREC* _cpp11imagemagick_magick_image_append(SEXP, SEXP)’:
+   cpp11.cpp:54:76: error: ‘XPtrImage’ was not declared in this scope
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                                                            ^~~~~~~~~
+   cpp11.cpp:54:76: error: template argument 1 is invalid
+   cpp11.cpp:54:87: error: no matching function for call to ‘as_cpp<<expression error> >(SEXPREC*&)’
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.     In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note: candidate: ‘template<class T> cpp11::enable_if_constructible_from_sexp<T, T> cpp11::as_cpp(SEXP)’
+      82 | enable_if_constructible_from_sexp<T, T> as_cpp(SEXP from) {
+         |                                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:82:41: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note: candidate: ‘template<class T> cpp11::enable_if_is_sexp<T, T> cpp11::as_cpp(SEXP)’
+      87 | enable_if_is_sexp<T, T> as_cpp(SEXP from) {
+         |                         ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:87:25: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                  from /home/pacha/R/x86_64-pc-linux-gnu-library                      from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note: candidate: ‘template<class T> cpp11::enable_if_integral<T, T> cpp11::as_cpp(SEXP)’
+      92 | enable_if_integral<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:92:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note: candidate: ‘template<class E> cpp11::enable_if_enum<E, E> cpp11::as_cpp(SEXP)’
+     119 | enable_if_enum<E, E> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:119:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-library     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note: candidate: ‘template<class T> cpp11::enable_if_bool<T, T> cpp11::as_cpp(SEXP)’
+     133 | enable_if_bool<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:133:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note: candidate: ‘template<class T> cpp11::enable_if_floating_point<T, T> cpp11::as_cpp(SEXP)’
+     144 | enable_if_floating_point<T, T> as_cpp(SEXP from) {
+         |                                ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:144:32: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note: candidate: ‘template<class T> cpp11::enable_if_char<T, T> cpp11::as_cpp(SEXP)’
+     173 | enable_if_char<T, T> as_cpp(SEXP from) {
+         |                      ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:173:22: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note: candidate: ‘template<class T> cpp11::enable_if_c_string<T, T> cpp11::as_cpp(SEXP)’
+     184 | enable_if_c_string<T, T> as_cpp(SEXP from) {
+         |                          ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:184:26: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note: candidate: ‘template<class T> cpp11::enable_if_std_string<T, T> cpp11::as_cpp(SEXP)’
+     196 | enable_if_std_string<T, T> as_cpp(SEXP from) {
+       |                            ^           |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:196:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:5,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note: candidate: ‘template<class T> cpp11::enable_if_t<(! std::is_same<typename std::decay<_Tp>::type, T>::value), typename std::decay<_Tp>::type> cpp11::as_cpp(SEXP)’
+     202 | enable_if_t<!std::is_same<decay_t<T>, T>::value, decay_t<T>> as_cpp(SEXP from) {
+         |                                                              ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/as.hpp:202:62: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+/home/p     /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note: candidate: ‘template<class C, class T> cpp11::is_container_but_not_sexp_or_string<C, T> cpp11::as_cpp(SEXP)’
+    1406 | is_container_but_not_sexp_or_string<C, T> as_cpp(SEXP from) {
+         |                                           ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1406:43: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+   In file included from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/list.hpp:9,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/data_frame.hpp:12,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11.hpp:7,
+                    from /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/declarations.hpp:13,
+                    from cpp11.cpp:5:
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note: candidate: ‘template<class C, class T> cpp11::is_vector_of_strings<C, T> cpp11::as_cpp(SEXP)’
+    1419 | is_vector_of_strings<C, T> as_cpp(SEXP from) {
+         |                            ^~~~~~
+   /home/pacha/R/x86_64-pc-linux-gnu-library/4.4/cpp11/include/cpp11/r_vector.hpp:1419:28: note:   template argument deduction/substitution failed:
+   cpp11.cpp:54:87: error: template argument 1 is invalid
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+     cpp11.cpp:54:27: error: ‘magick_image_append’ was not declared in this scope
+      54 |     return cpp11::as_sexp(magick_image_append(cpp11::as_cpp<cpp11::decay_t<XPtrImage>>(image), cpp11::as_cpp<cpp11::decay_t<bool>>(stack)));
+         |                           ^~~~~~~~~~~~~~~~~~~
+     make: *** [/usr/lib/R/etc/Makeconf:204: cpp11.o] Error 1
+     ERROR: compilation failed for package ‘cpp11imagemagick’
+─  removing ‘/tmp/Rtmpk5VDVx/devtools_install_4177e310e9c4d/cpp11imagemagick’
+

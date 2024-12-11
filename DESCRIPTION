@@ -1,29 +1,47 @@
-Package: magick
+Package: cpp11imagemagick
 Type: Package
 Title: Advanced Graphics and Image-Processing in R
-Version: 2.8.5
-Authors@R: person("Jeroen", "Ooms", role = c("aut", "cre"), email = "jeroenooms@gmail.com",
-    comment = c(ORCID = "0000-0002-4035-0289"))
-Description: Bindings to 'ImageMagick': the most comprehensive open-source image
-    processing library available. Supports many common formats (png, jpeg, tiff,
-    pdf, etc) and manipulations (rotate, scale, crop, trim, flip, blur, etc).
-    All operations are vectorized via the Magick++ STL meaning they operate either
-    on a single frame or a series of frames for working with layers, collages,
-    or animation. In RStudio images are automatically previewed when printed to
-    the console, resulting in an interactive editing environment. The latest 
-    version of the package includes a native graphics device for creating 
-    in-memory graphics or drawing onto images using pixel coordinates.
-License: MIT + file LICENSE
-URL: https://docs.ropensci.org/magick/
-    https://ropensci.r-universe.dev/magick
-BugReports: https://github.com/ropensci/magick/issues
-SystemRequirements: ImageMagick++: ImageMagick-c++-devel (rpm) or libmagick++-dev (deb)
+Version: 0.1.0
+Authors@R: c(person("Jeroen", "Ooms",
+                    role = c("aut"),
+                    email = "jeroen@berkeley.edu",
+                    comment = c(ORCID = "0000-0002-4035-0289")),
+             person("Mauricio", "Vargas Sepulveda",
+                    role = c("aut", "cre"), 
+                    email = "m.sepulveda@mail.utoronto.ca", 
+                    comment = c(ORCID = "0000-0003-1017-7574")),
+             person("Munk School of Global Affairs and Public Policy",
+                    role = "fnd")
+            )
+Description: Bindings to 'ImageMagick':
+    The most comprehensive open-source image processing library available.
+    Supports many common formats (png, jpeg, tiff, pdf, etc) and manipulations
+    (rotate, scale, crop, trim, flip, blur, etc). All operations are vectorized
+    via the Magick++ STL meaning they operate either on a single frame or a
+    series of frames for working with layers, collages, or animation. In
+    RStudio, the images are automatically previewed when printed to the console,
+    resulting in an interactive editing environment. Includes a native graphics
+    device for creating  in-memory graphics or drawing onto images using pixel
+    coordinates.
+License: Apache License (>= 2)
+URL: https://pacha.dev/cpp11imagemagick
+BugReports: https://github.com/pachadotdev/cpp11imagemagick/issues
+SystemRequirements:
+    ImageMagick++ (
+        deb: libmagick++-dev,
+        rpm: ImageMagick-c++-devel,
+        brew: imagemagick
+    )
 VignetteBuilder: knitr
 Imports:
-    Rcpp (>= 0.12.12),
     magrittr,
     curl
-LinkingTo: Rcpp
+LinkingTo: 
+    cpp11
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
 Suggests:
     av (>= 0.3),
     spelling,
@@ -39,7 +57,3 @@ Suggests:
     IRdisplay,
     tesseract (>= 2.0),
     gifski
-Encoding: UTF-8
-RoxygenNote: 7.3.2
-Roxygen: list(load = "installed", markdown = TRUE)
-Language: en-US
